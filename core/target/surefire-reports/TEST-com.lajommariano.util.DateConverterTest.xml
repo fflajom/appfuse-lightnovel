@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.02" errors="0" skipped="0" tests="8" name="com.lajommariano.util.DateConverterTest">
+<testsuite failures="0" time="0.027" errors="0" skipped="0" tests="8" name="com.lajommariano.util.DateConverterTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home/jre/lib"/>
@@ -41,11 +41,10 @@
     <property name="file.encoding" value="UTF-8"/>
     <property name="user.name" value="dev_env"/>
     <property name="java.class.path" value="/Users/dev_env/maven/boot/plexus-classworlds-2.5.2.jar"/>
-    <property name="org.slf4j.simpleLogger.defaultLogLevel" value="debug"/>
     <property name="java.vm.specification.version" value="1.7"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home/jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean install -X"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean install"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
@@ -64,11 +63,11 @@
     <property name="sun.cpu.isalist" value=""/>
   </properties>
   <testcase time="0" classname="com.lajommariano.util.DateConverterTest" name="testConvertDateWithNull"/>
-  <testcase time="0.018" classname="com.lajommariano.util.DateConverterTest" name="testInternationalization"/>
-  <testcase time="0" classname="com.lajommariano.util.DateConverterTest" name="testConvertStringToTimestamp"/>
-  <testcase time="0.001" classname="com.lajommariano.util.DateConverterTest" name="testConvertTimestampToString"/>
+  <testcase time="0.022" classname="com.lajommariano.util.DateConverterTest" name="testInternationalization"/>
+  <testcase time="0.005" classname="com.lajommariano.util.DateConverterTest" name="testConvertStringToTimestamp"/>
+  <testcase time="0" classname="com.lajommariano.util.DateConverterTest" name="testConvertTimestampToString"/>
   <testcase time="0" classname="com.lajommariano.util.DateConverterTest" name="testConvertNotSupported"/>
   <testcase time="0" classname="com.lajommariano.util.DateConverterTest" name="testConvertStringToDate"/>
-  <testcase time="0.001" classname="com.lajommariano.util.DateConverterTest" name="testConvertStringToString"/>
+  <testcase time="0" classname="com.lajommariano.util.DateConverterTest" name="testConvertStringToString"/>
   <testcase time="0" classname="com.lajommariano.util.DateConverterTest" name="testConvertDateToString"/>
 </testsuite>

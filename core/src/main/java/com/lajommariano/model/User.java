@@ -78,6 +78,10 @@ public class User extends BaseModel implements Serializable, UserDetails {
     private Date birthdate;
 	private Date premiumDate;
 	private Date registrationDate;
+
+	private List<User> following = new ArrayList<User>();
+
+	private List<User> followers = new ArrayList<User>();
 	
 	/**
      * Default constructor - creates a new instance with no values set.
@@ -218,7 +222,7 @@ public class User extends BaseModel implements Serializable, UserDetails {
 		return registrationDate;
 	}
 
-   /* @ManyToMany(targetEntity=User.class,fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @ManyToMany(targetEntity=User.class,fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(
 		name = "follow", 
 		joinColumns = { @JoinColumn(name="follower_id", nullable=false, updatable=false) }, 
@@ -231,7 +235,7 @@ public class User extends BaseModel implements Serializable, UserDetails {
     @ManyToMany(fetch=FetchType.LAZY, mappedBy="following")
 	public List<User> getFollowers() {
 		return followers;
-	}*/
+	}
 
 	public void addRole(Role role) {
         getRoles().add(role);
@@ -379,6 +383,14 @@ public class User extends BaseModel implements Serializable, UserDetails {
 	public void setFollowers(List<User> followers) {
 		this.followers = followers;
 	}*/
+
+	public void setFollowing(List<User> following) {
+		this.following = following;
+	}
+
+	public void setFollowers(List<User> followers) {
+		this.followers = followers;
+	}
 
 	/**
      * {@inheritDoc}
