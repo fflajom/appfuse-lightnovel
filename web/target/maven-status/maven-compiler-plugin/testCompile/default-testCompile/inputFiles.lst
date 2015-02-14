@@ -1,0 +1,9 @@
+/Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/test/java/com/lajommariano/webapp/controller/SignupControllerTest.java
+/Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/test/java/com/lajommariano/webapp/controller/UserControllerTest.java
+/Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/test/java/com/lajommariano/webapp/controller/UserFormControllerTest.java
+/Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/test/java/com/lajommariano/webapp/controller/UpdatePasswordControllerTest.java
+/Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/test/java/com/lajommariano/webapp/controller/BaseControllerTestCase.java
+/Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/test/java/com/lajommariano/webapp/listener/StartupListenerTest.java
+/Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/test/java/com/lajommariano/webapp/filter/LocaleFilterTest.java
+/Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/test/java/com/lajommariano/webapp/controller/PasswordHintControllerTest.java
+/Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/test/java/com/lajommariano/webapp/filter/MockFilterChain.java

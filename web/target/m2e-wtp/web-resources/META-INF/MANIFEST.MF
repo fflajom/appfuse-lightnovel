@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Title: AppFuse Modular Application - Web (Spring MVC)
+Implementation-Version: 1.0-SNAPSHOT
+Built-By: dev_env
+Implementation-Vendor-Id: com.lajommariano
+Build-Jdk: 1.8.0_25
+Created-By: Maven Integration for Eclipse
+

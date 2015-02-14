@@ -1,0 +1,9 @@
+com/lajommariano/webapp/filter/LocaleFilterTest.class
+com/lajommariano/webapp/controller/UpdatePasswordControllerTest.class
+com/lajommariano/webapp/filter/MockFilterChain.class
+com/lajommariano/webapp/controller/UserFormControllerTest.class
+com/lajommariano/webapp/controller/SignupControllerTest.class
+com/lajommariano/webapp/controller/UserControllerTest.class
+com/lajommariano/webapp/listener/StartupListenerTest.class
+com/lajommariano/webapp/controller/PasswordHintControllerTest.class
+com/lajommariano/webapp/controller/BaseControllerTestCase.class
