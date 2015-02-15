@@ -28,7 +28,6 @@ public class HomeController {
             HttpServletResponse response) throws Exception {
                 
     	UserDTO user = (UserDTO) manager.loadUserByUsername(request.getUserPrincipal().getName());
-    	log.debug(user);
     	if(user.getRoleList().get(0).getLabel().equals("ROLE_ADMIN")){
     		return "admin/activeUsers";
     	}else{

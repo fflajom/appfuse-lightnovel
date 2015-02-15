@@ -83,17 +83,9 @@ public class User extends BaseModel implements Serializable {
 
 	private List<User> followers = new ArrayList<User>();
 	
-	/**
-     * Default constructor - creates a new instance with no values set.
-     */
     public User() {
     }
 
-    /**
-     * Create a new instance and set the username.
-     *
-     * @param username login name for user.
-     */
     public User(final String username) {
         this.username = username;
     }
@@ -114,13 +106,6 @@ public class User extends BaseModel implements Serializable {
     @Column(name="salt", nullable=true, length=50)
     public String getSalt(){
         return salt;
-    }
-
-    @Transient
-    @XmlTransient
-    @JsonIgnore
-    public String getConfirmPassword() {
-        return confirmPassword;
     }
 
     @Column(name = "password_hint")
@@ -158,16 +143,6 @@ public class User extends BaseModel implements Serializable {
         return website;
     }
 
-    /**
-     * Returns the full name.
-     *
-     * @return firstName + ' ' + lastName
-     */
-    @Transient
-    public String getFullName() {
-        return firstName + ' ' + lastName;
-    }
-
     @Embedded
     @IndexedEmbedded
     public Address getAddress() {
@@ -183,29 +158,6 @@ public class User extends BaseModel implements Serializable {
     )public Set<Role> getRoles() {
         return roles;
     }
-
-    /**
-     * Convert user roles to LabelValue objects for convenience.
-     *
-     * @return a list of LabelValue objects with role information
-     */
-    @Transient
-    public List<LabelValue> getRoleList() {
-        List<LabelValue> userRoles = new ArrayList<LabelValue>();
-
-        if (this.roles != null) {
-            for (Role role : roles) {
-                // convert the user's roles to LabelValue Objects
-                userRoles.add(new LabelValue(role.getName(), role.getName()));
-            }
-        }
-
-        return userRoles;
-    }
-
-    public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
     @Column(name="birthdate", nullable=false)
 	public Date getBirthdate() {
@@ -241,8 +193,6 @@ public class User extends BaseModel implements Serializable {
         getRoles().add(role);
     }
 
-    
-
     @Version
     public Integer getVersion() {
         return version;
@@ -258,37 +208,14 @@ public class User extends BaseModel implements Serializable {
         return accountExpired;
     }
 
-    /**
-     * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonExpired()
-     * @return true if account is still active
-     */
-    @Transient
-    public boolean isAccountNonExpired() {
-        return !isAccountExpired();
-    }
-
     @Column(name = "account_locked", nullable = false)
     public boolean isAccountLocked() {
         return accountLocked;
     }
 
-    /**
-     * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonLocked()
-     * @return false if account is locked
-     */
-    @Transient
-    public boolean isAccountNonLocked() {
-        return !isAccountLocked();
-    }
-
     @Column(name = "credentials_expired", nullable = false)
     public boolean isCredentialsExpired() {
         return credentialsExpired;
-    }
-
-    @Transient
-    public boolean isCredentialsNonExpired() {
-        return !credentialsExpired;
     }
 
     public void setUsername(String username) {
@@ -371,14 +298,6 @@ public class User extends BaseModel implements Serializable {
 		this.registrationDate = registrationDate;
 	}
 
-	/*public void setFollowing(List<User> following) {
-		this.following = following;
-	}
-
-	public void setFollowers(List<User> followers) {
-		this.followers = followers;
-	}*/
-
 	public void setFollowing(List<User> following) {
 		this.following = following;
 	}
@@ -435,8 +354,7 @@ public class User extends BaseModel implements Serializable {
         return sb.toString();
     }
 
-	public Object willReturn(User testUser) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
 }

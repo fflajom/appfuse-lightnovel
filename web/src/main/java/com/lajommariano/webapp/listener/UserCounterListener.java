@@ -1,6 +1,5 @@
 package com.lajommariano.webapp.listener;
 
-import com.lajommariano.model.User;
 import com.lajommariano.service.model.UserDTO;
 
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -121,7 +120,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     public void attributeAdded(HttpSessionBindingEvent event) {
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
-            if (securityContext != null && securityContext.getAuthentication().getPrincipal() instanceof User) {
+            if (securityContext != null && securityContext.getAuthentication().getPrincipal() instanceof UserDTO) {
                 UserDTO user = (UserDTO) securityContext.getAuthentication().getPrincipal();
                 addUsername(user);
             }
@@ -148,7 +147,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
             Authentication auth = securityContext.getAuthentication();
-            if (auth != null && (auth.getPrincipal() instanceof User)) {
+            if (auth != null && (auth.getPrincipal() instanceof UserDTO)) {
                 UserDTO user = (UserDTO) auth.getPrincipal();
                 removeUsername(user);
             }
@@ -166,7 +165,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             final SecurityContext securityContext = (SecurityContext) event.getValue();
             if (securityContext.getAuthentication() != null
-                    && securityContext.getAuthentication().getPrincipal() instanceof User) {
+                    && securityContext.getAuthentication().getPrincipal() instanceof UserDTO) {
                 final UserDTO user = (UserDTO) securityContext.getAuthentication().getPrincipal();
                 addUsername(user);
             }
