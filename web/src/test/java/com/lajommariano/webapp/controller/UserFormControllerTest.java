@@ -3,6 +3,8 @@ package com.lajommariano.webapp.controller;
 import com.lajommariano.Constants;
 import com.lajommariano.model.User;
 import com.lajommariano.service.UserManager;
+import com.lajommariano.service.model.UserDTO;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -17,7 +19,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     @Autowired
     private UserFormController c = null;
     private MockHttpServletRequest request;
-    private User user;
+    private UserDTO user;
 
     @Test
     public void testAdd() throws Exception {
@@ -63,7 +65,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request.addParameter("id", "-1"); // regular user
         request.addUserRole(Constants.ADMIN_ROLE);
 
-        User user = c.showForm(request, new MockHttpServletResponse());
+        UserDTO user = c.showForm(request, new MockHttpServletResponse());
         assertEquals("Tomcat User", user.getFullName());
     }
 
@@ -96,7 +98,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request = newPost("/userform.html");
         // set updated properties first since adding them later will
         // result in multiple parameters with the same name getting sent
-        User user = ((UserManager) applicationContext.getBean("userManager")).getUser("-1");
+        UserDTO user = ((UserManager) applicationContext.getBean("userManager")).getUser("-1");
         user.setConfirmPassword(user.getPassword());
         user.setLastName("Updated Last Name");
 
@@ -112,7 +114,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     @Test
     public void testAddWithMissingFields() throws Exception {
         request = newPost("/userform.html");
-        user = new User();
+        user = new UserDTO();
         user.setFirstName("Jack");
         request.setRemoteUser("user");
 
@@ -126,7 +128,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     public void testRemove() throws Exception {
         request = newPost("/userform.html");
         request.addParameter("delete", "");
-        user = new User();
+        user = new UserDTO();
         user.setId(-2L);
 
         BindingResult errors = new DataBinder(user).getBindingResult();

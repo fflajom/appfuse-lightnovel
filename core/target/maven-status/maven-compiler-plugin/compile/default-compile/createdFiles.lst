@@ -4,6 +4,7 @@ com/lajommariano/model/Address.class
 com/lajommariano/model/LabelValue.class
 com/lajommariano/model/BaseModel.class
 com/lajommariano/dao/spring/HibernateExtensionPostProcessor.class
+com/lajommariano/service/model/UserDTO.class
 com/lajommariano/util/DateUtil.class
 com/lajommariano/model/Book.class
 com/lajommariano/util/TimestampConverter.class
@@ -38,6 +39,7 @@ com/lajommariano/util/DateConverter.class
 com/lajommariano/dao/SearchException.class
 com/lajommariano/service/impl/GenericManagerImpl.class
 com/lajommariano/model/Tag.class
+com/lajommariano/util/DozerHelper.class
 com/lajommariano/model/Writer.class
 com/lajommariano/service/MailEngine.class
 com/lajommariano/dao/GenericDao.class

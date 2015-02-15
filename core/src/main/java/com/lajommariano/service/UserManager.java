@@ -1,7 +1,11 @@
 package com.lajommariano.service;
 
+import com.lajommariano.service.model.UserDTO;
+import com.lajommariano.util.DozerHelper;
 import com.lajommariano.dao.UserDao;
 import com.lajommariano.model.User;
+
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -15,12 +19,14 @@ import java.util.List;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a>
  */
-public interface UserManager extends GenericManager<User, Long> {
+public interface UserManager extends GenericManager<User, Long>, UserDetailsService{
     /**
      * Convenience method for testing - allows you to mock the DAO and set it on an interface.
      * @param userDao the UserDao implementation to use
      */
     void setUserDao(UserDao userDao);
+    
+    void setMapper(DozerHelper helper);
 
     /**
      * Convenience method for testing - allows you to mock the PasswordEncoder and set it on an interface.
@@ -35,7 +41,7 @@ public interface UserManager extends GenericManager<User, Long> {
      * @param userId the identifier for the user
      * @return User
      */
-    User getUser(String userId);
+    UserDTO getUser(String userId);
 
     /**
      * Finds a user by their username.
@@ -44,13 +50,13 @@ public interface UserManager extends GenericManager<User, Long> {
      * @throws org.springframework.security.core.userdetails.UsernameNotFoundException
      *         exception thrown when user not found
      */
-    User getUserByUsername(String username) throws UsernameNotFoundException;
+    UserDTO getUserByUsername(String username) throws UsernameNotFoundException;
 
     /**
      * Retrieves a list of all users.
      * @return List
      */
-    List<User> getUsers();
+    List<UserDTO> getUsers();
 
     /**
      * Saves a user's information.
@@ -59,14 +65,14 @@ public interface UserManager extends GenericManager<User, Long> {
      * @throws UserExistsException thrown when user already exists
      * @return user the updated user object
      */
-    User saveUser(User user) throws UserExistsException;
+    UserDTO saveUser(UserDTO user) throws UserExistsException;
 
     /**
      * Removes a user from the database
      *
      * @param user the user to remove
      */
-    void removeUser(User user);
+    void removeUser(UserDTO user);
 
     /**
      * Removes a user from the database by their userId
@@ -80,7 +86,7 @@ public interface UserManager extends GenericManager<User, Long> {
      * @param searchTerm the search terms.
      * @return a list of matches, or all if no searchTerm.
      */
-    List<User> search(String searchTerm);
+    List<UserDTO> search(String searchTerm);
 
     /**
      * Builds a recovery password url by replacing placeholders with username and generated recovery token.
@@ -92,14 +98,14 @@ public interface UserManager extends GenericManager<User, Long> {
      *            template including two placeholders '{username}' and '{token}'
      * @return
      */
-    String buildRecoveryPasswordUrl(User user, String urlTemplate);
+    String buildRecoveryPasswordUrl(UserDTO user, String urlTemplate);
 
     /**
      *
      * @param user
      * @return
      */
-    String generateRecoveryToken(User user);
+    String generateRecoveryToken(UserDTO user);
 
     /**
      *
@@ -115,7 +121,7 @@ public interface UserManager extends GenericManager<User, Long> {
      * @param token
      * @return
      */
-    boolean isRecoveryTokenValid(User user, String token);
+    boolean isRecoveryTokenValid(UserDTO user, String token);
 
     /**
      * Sends a password recovery email to username.
@@ -136,5 +142,5 @@ public interface UserManager extends GenericManager<User, Long> {
      * @return
      * @throws UserExistsException
      */
-    User updatePassword(String username, String currentPassword, String recoveryToken, String newPassword, String applicationUrl) throws UserExistsException;
+    UserDTO updatePassword(String username, String currentPassword, String recoveryToken, String newPassword, String applicationUrl) throws UserExistsException;
 }

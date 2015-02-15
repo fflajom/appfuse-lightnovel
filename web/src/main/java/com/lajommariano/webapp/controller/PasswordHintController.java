@@ -2,10 +2,13 @@ package com.lajommariano.webapp.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import com.lajommariano.model.User;
 import com.lajommariano.service.MailEngine;
 import com.lajommariano.service.UserManager;
+import com.lajommariano.service.model.UserDTO;
 import com.lajommariano.webapp.util.RequestUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +79,7 @@ public class PasswordHintController {
 
         // look up the user's information
         try {
-            User user = userManager.getUserByUsername(username);
+            UserDTO user = userManager.getUserByUsername(username);
 
             StringBuffer msg = new StringBuffer();
             msg.append("Your password hint is: ").append(user.getPasswordHint());

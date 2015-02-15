@@ -8,7 +8,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.lajommariano.service.model.UserDTO;
 import com.lajommariano.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,7 +39,7 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
      * {@inheritDoc}
      */
     @Override
-    public String generateRecoveryToken(final User user) {
+    public String generateRecoveryToken(final UserDTO user) {
         if (user != null) {
             final String tokenSource = getTokenSource(user);
             final String expirationTimeStamp = expirationTimeFormat.format(getExpirationTime());
@@ -50,7 +53,7 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
      * {@inheritDoc}
      */
     @Override
-    public boolean isRecoveryTokenValid(final User user, final String token) {
+    public boolean isRecoveryTokenValid(final UserDTO user, final String token) {
         if (user != null && token != null) {
             final String expirationTimeStamp = getTimestamp(token);
             final String tokenWithoutTimestamp = getTokenWithoutTimestamp(token);
@@ -67,7 +70,7 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
      * {@inheritDoc}
      */
     @Override
-    public void invalidateRecoveryToken(User user, String token) {
+    public void invalidateRecoveryToken(UserDTO user, String token) {
         // NOP
     }
 
@@ -88,7 +91,7 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
      * @param user
      * @return
      */
-    private String getTokenSource(final User user) {
+    private String getTokenSource(final UserDTO user) {
         return user.getEmail() + user.getVersion() + user.getPassword();
     }
 

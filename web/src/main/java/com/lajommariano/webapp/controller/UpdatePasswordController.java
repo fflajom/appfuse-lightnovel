@@ -5,8 +5,11 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+
 import com.lajommariano.model.User;
+import com.lajommariano.service.model.UserDTO;
 import com.lajommariano.webapp.util.RequestUtil;
+
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
@@ -95,7 +98,7 @@ public class UpdatePasswordController extends BaseFormController {
             return showForm(username, null, request);
         }
 
-        User user = null;
+        UserDTO user = null;
         final boolean usingToken = StringUtils.isNotBlank(token);
         if (usingToken) {
             log.debug("Updating Password for username " + username + ", using reset token");

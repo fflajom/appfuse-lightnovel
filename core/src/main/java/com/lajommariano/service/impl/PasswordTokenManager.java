@@ -1,5 +1,6 @@
 package com.lajommariano.service.impl;
 
+import com.lajommariano.service.model.UserDTO;
 import com.lajommariano.model.User;
 
 
@@ -8,12 +9,12 @@ public interface PasswordTokenManager {
     /**
      * {@inheritDoc}
      */
-    String generateRecoveryToken(User user);
+    String generateRecoveryToken(UserDTO user);
 
     /**
      * {@inheritDoc}
      */
-    boolean isRecoveryTokenValid(User user, String token);
+    boolean isRecoveryTokenValid(UserDTO user, String token);
 
-    void invalidateRecoveryToken(User user, String token);
+    void invalidateRecoveryToken(UserDTO user, String token);
 }

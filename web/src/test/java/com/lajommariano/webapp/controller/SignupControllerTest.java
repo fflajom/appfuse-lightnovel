@@ -3,6 +3,8 @@ package com.lajommariano.webapp.controller;
 import com.lajommariano.Constants;
 import com.lajommariano.model.Address;
 import com.lajommariano.model.User;
+import com.lajommariano.service.model.UserDTO;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -36,7 +38,7 @@ public class SignupControllerTest extends BaseControllerTestCase {
         address.setCountry("USA");
         address.setPostalCode("80210");
 
-        User user = new User();
+        UserDTO user = new UserDTO();
         user.setAddress(address);
 
         user.setUsername("self-registered");

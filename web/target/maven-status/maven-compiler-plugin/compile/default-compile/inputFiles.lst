@@ -2,6 +2,7 @@
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/main/java/com/lajommariano/webapp/controller/UpdatePasswordController.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/main/java/com/lajommariano/webapp/controller/FileUploadController.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/main/java/com/lajommariano/webapp/util/ValidationUtil.java
+/Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/main/java/com/lajommariano/webapp/controller/HomeController.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/main/java/com/lajommariano/webapp/taglib/CountryTag.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/main/java/com/lajommariano/webapp/listener/StartupListener.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/web/src/main/java/com/lajommariano/webapp/taglib/ConstantsTei.java

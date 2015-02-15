@@ -3,9 +3,11 @@ package com.lajommariano.service;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.lajommariano.service.model.UserDTO;
 import com.lajommariano.Constants;
 import com.lajommariano.model.Role;
-import com.lajommariano.model.User;
+
 import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.aop.MethodBeforeAdvice;
 import org.springframework.security.access.AccessDeniedException;
@@ -61,7 +63,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
                 }
             }
 
-            User user = (User) args[0];
+            UserDTO user = (UserDTO) args[0];
 
             AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
             // allow new users to signup - this is OK b/c Signup doesn't allow setting of roles
@@ -69,7 +71,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
 
             if (!signupUser) {
                 UserManager userManager = (UserManager) target;
-                User currentUser = getCurrentUser(auth, userManager);
+                UserDTO currentUser = getCurrentUser(auth, userManager);
 
                 if (user.getId() != null && !user.getId().equals(currentUser.getId()) && !administrator) {
                     log.warn("Access Denied: '" + currentUser.getUsername() + "' tried to modify '" + user.getUsername() + "'!");
@@ -116,7 +118,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
      */
     public void afterReturning(Object returnValue, Method method, Object[] args, Object target)
             throws Throwable {
-        User user = (User) args[0];
+        UserDTO user = (UserDTO) args[0];
 
         if (user.getVersion() != null) {
             // reset the authentication object if current user
@@ -126,7 +128,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             boolean signupUser = resolver.isAnonymous(auth);
             if (auth != null && !signupUser) {
                 UserManager userManager = (UserManager) target;
-                User currentUser = getCurrentUser(auth, userManager);
+                UserDTO currentUser = getCurrentUser(auth, userManager);
                 if (currentUser.getId().equals(user.getId())) {
                     auth = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(auth);
@@ -135,16 +137,16 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
         }
     }
 
-    private User getCurrentUser(Authentication auth, UserManager userManager) {
-        User currentUser;
+    private UserDTO getCurrentUser(Authentication auth, UserManager userManager) {
+        UserDTO currentUser;
         if (auth.getPrincipal() instanceof LdapUserDetails) {
             LdapUserDetails ldapDetails = (LdapUserDetails) auth.getPrincipal();
             String username = ldapDetails.getUsername();
             currentUser = userManager.getUserByUsername(username);
         } else if (auth.getPrincipal() instanceof UserDetails) {
-            currentUser = (User) auth.getPrincipal();
+            currentUser = (UserDTO) auth.getPrincipal();
         } else if (auth.getDetails() instanceof UserDetails) {
-            currentUser = (User) auth.getDetails();
+            currentUser = (UserDTO) auth.getDetails();
         } else {
             throw new AccessDeniedException("User not properly authenticated.");
         }

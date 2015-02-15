@@ -202,7 +202,7 @@ static {
       org.springframework.web.servlet.tags.form.FormTag _jspx_th_form_form_0 = (org.springframework.web.servlet.tags.form.FormTag) _jspx_tagPool_form_form_onsubmit_method_id_cssClass_commandName_autocomplete_action.get(org.springframework.web.servlet.tags.form.FormTag.class);
       _jspx_th_form_form_0.setPageContext(_jspx_page_context);
       _jspx_th_form_form_0.setParent(null);
-      _jspx_th_form_form_0.setCommandName("user");
+      _jspx_th_form_form_0.setCommandName("userDTO");
       _jspx_th_form_form_0.setMethod("post");
       _jspx_th_form_form_0.setAction("userform");
       _jspx_th_form_form_0.setId("userForm");
@@ -229,7 +229,7 @@ static {
             org.springframework.web.servlet.tags.BindTag _jspx_th_spring_bind_1 = (org.springframework.web.servlet.tags.BindTag) _jspx_tagPool_spring_bind_path.get(org.springframework.web.servlet.tags.BindTag.class);
             _jspx_th_spring_bind_1.setPageContext(_jspx_page_context);
             _jspx_th_spring_bind_1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_form_form_0);
-            _jspx_th_spring_bind_1.setPath("user.username");
+            _jspx_th_spring_bind_1.setPath("username");
             int[] _jspx_push_body_count_spring_bind_1 = new int[] { 0 };
             try {
               int _jspx_eval_spring_bind_1 = _jspx_th_spring_bind_1.doStartTag();
@@ -290,7 +290,7 @@ static {
             org.springframework.web.servlet.tags.BindTag _jspx_th_spring_bind_2 = (org.springframework.web.servlet.tags.BindTag) _jspx_tagPool_spring_bind_path.get(org.springframework.web.servlet.tags.BindTag.class);
             _jspx_th_spring_bind_2.setPageContext(_jspx_page_context);
             _jspx_th_spring_bind_2.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_form_form_0);
-            _jspx_th_spring_bind_2.setPath("user.passwordHint");
+            _jspx_th_spring_bind_2.setPath("passwordHint");
             int[] _jspx_push_body_count_spring_bind_2 = new int[] { 0 };
             try {
               int _jspx_eval_spring_bind_2 = _jspx_th_spring_bind_2.doStartTag();
@@ -349,7 +349,7 @@ static {
             org.springframework.web.servlet.tags.BindTag _jspx_th_spring_bind_3 = (org.springframework.web.servlet.tags.BindTag) _jspx_tagPool_spring_bind_path.get(org.springframework.web.servlet.tags.BindTag.class);
             _jspx_th_spring_bind_3.setPageContext(_jspx_page_context);
             _jspx_th_spring_bind_3.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_form_form_0);
-            _jspx_th_spring_bind_3.setPath("user.firstName");
+            _jspx_th_spring_bind_3.setPath("firstName");
             int[] _jspx_push_body_count_spring_bind_3 = new int[] { 0 };
             try {
               int _jspx_eval_spring_bind_3 = _jspx_th_spring_bind_3.doStartTag();
@@ -407,7 +407,7 @@ static {
             org.springframework.web.servlet.tags.BindTag _jspx_th_spring_bind_4 = (org.springframework.web.servlet.tags.BindTag) _jspx_tagPool_spring_bind_path.get(org.springframework.web.servlet.tags.BindTag.class);
             _jspx_th_spring_bind_4.setPageContext(_jspx_page_context);
             _jspx_th_spring_bind_4.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_form_form_0);
-            _jspx_th_spring_bind_4.setPath("user.lastName");
+            _jspx_th_spring_bind_4.setPath("lastName");
             int[] _jspx_push_body_count_spring_bind_4 = new int[] { 0 };
             try {
               int _jspx_eval_spring_bind_4 = _jspx_th_spring_bind_4.doStartTag();
@@ -467,7 +467,7 @@ static {
             org.springframework.web.servlet.tags.BindTag _jspx_th_spring_bind_5 = (org.springframework.web.servlet.tags.BindTag) _jspx_tagPool_spring_bind_path.get(org.springframework.web.servlet.tags.BindTag.class);
             _jspx_th_spring_bind_5.setPageContext(_jspx_page_context);
             _jspx_th_spring_bind_5.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_form_form_0);
-            _jspx_th_spring_bind_5.setPath("user.email");
+            _jspx_th_spring_bind_5.setPath("email");
             int[] _jspx_push_body_count_spring_bind_5 = new int[] { 0 };
             try {
               int _jspx_eval_spring_bind_5 = _jspx_th_spring_bind_5.doStartTag();
@@ -2178,7 +2178,7 @@ static {
     org.apache.taglibs.standard.tag.rt.core.WhenTag _jspx_th_c_when_2 = (org.apache.taglibs.standard.tag.rt.core.WhenTag) _jspx_tagPool_c_when_test.get(org.apache.taglibs.standard.tag.rt.core.WhenTag.class);
     _jspx_th_c_when_2.setPageContext(_jspx_page_context);
     _jspx_th_c_when_2.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_choose_1);
-    _jspx_th_c_when_2.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${not empty user.username}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_when_2.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${not empty userDTO.username}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_when_2 = _jspx_th_c_when_2.doStartTag();
     if (_jspx_eval_c_when_2 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
@@ -2246,7 +2246,7 @@ static {
     _jspx_th_c_forEach_2.setPageContext(_jspx_page_context);
     _jspx_th_c_forEach_2.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_when_2);
     _jspx_th_c_forEach_2.setVar("role");
-    _jspx_th_c_forEach_2.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.roleList}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_forEach_2.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${userDTO.roleList}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
     _jspx_th_c_forEach_2.setVarStatus("status");
     int[] _jspx_push_body_count_c_forEach_2 = new int[] { 0 };
     try {

@@ -23,7 +23,7 @@ public interface UserDao extends GenericDao<User, Long> {
      * found in database
      */
     @Transactional
-    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+    User loadUserByUsername(String username) throws UsernameNotFoundException;
 
     /**
      * Gets a list of users ordered by the uppercase version of their username.

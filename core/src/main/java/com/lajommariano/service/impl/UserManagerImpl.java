@@ -1,20 +1,28 @@
 package com.lajommariano.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+
+import com.lajommariano.service.model.UserDTO;
 import com.lajommariano.dao.UserDao;
 import com.lajommariano.model.User;
 import com.lajommariano.service.MailEngine;
 import com.lajommariano.service.UserExistsException;
 import com.lajommariano.service.UserManager;
 import com.lajommariano.service.UserService;
+import com.lajommariano.util.DozerHelper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.jws.WebService;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -32,8 +40,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     private PasswordEncoder passwordEncoder;
     private UserDao userDao;
 
-
-    private MailEngine mailEngine;
+    private DozerHelper mapper;
+	private MailEngine mailEngine;
     private SimpleMailMessage message;
     private PasswordTokenManager passwordTokenManager;
 
@@ -67,6 +75,15 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     public void setPasswordTokenManager(final PasswordTokenManager passwordTokenManager) {
         this.passwordTokenManager = passwordTokenManager;
     }
+    
+    public DozerHelper getMapper() {
+		return mapper;
+	}
+
+    @Autowired
+	public void setMapper(DozerHelper mapper) {
+		this.mapper = mapper;
+	}
 
     /**
      * Velocity template name to send users a password recovery mail (default
@@ -94,25 +111,28 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      * {@inheritDoc}
      */
     @Override
-    public User getUser(final String userId) {
-        return userDao.get(new Long(userId));
+    public UserDTO getUser(final String userId) {
+        User user = userDao.get(new Long(userId));
+        UserDTO mappedUser = mapper.map(user, UserDTO.class);
+        user = null;
+        return mappedUser;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<User> getUsers() {
-        return userDao.getAllDistinct();
+    public List<UserDTO> getUsers() {
+        return mapper.map(userDao.getAllDistinct(), UserDTO.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public User saveUser(final User user) throws UserExistsException {
+    public UserDTO saveUser(final UserDTO user) throws UserExistsException {
 
-        if (user.getVersion() == null) {
+    	if (user.getVersion() == null) {
             // if new user, lowercase userId
             user.setUsername(user.getUsername().toLowerCase());
         }
@@ -145,7 +165,9 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         }
 
         try {
-            return userDao.saveUser(user);
+        	System.out.println(user.getId());
+        	System.out.println(mapper.map(user, User.class).getId());
+            return mapper.map(userDao.saveUser(mapper.map(user, User.class)), UserDTO.class);
         } catch (final Exception e) {
             e.printStackTrace();
             log.warn(e.getMessage());
@@ -157,9 +179,9 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      * {@inheritDoc}
      */
     @Override
-    public void removeUser(final User user) {
+    public void removeUser(final UserDTO user) {
         log.debug("removing user: " + user);
-        userDao.remove(user);
+        userDao.remove(mapper.map(user, User.class));
     }
 
     /**
@@ -179,20 +201,21 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      * @throws org.springframework.security.core.userdetails.UsernameNotFoundException thrown when username not found
      */
     @Override
-    public User getUserByUsername(final String username) throws UsernameNotFoundException {
-        return (User) userDao.loadUserByUsername(username);
+    public UserDTO getUserByUsername(final String username) throws UsernameNotFoundException {
+        log.debug(mapper.map(userDao.loadUserByUsername(username), UserDTO.class));
+        return mapper.map(userDao.loadUserByUsername(username), UserDTO.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<User> search(final String searchTerm) {
-        return super.search(searchTerm, User.class);
+    public List<UserDTO> search(final String searchTerm) {
+        return mapper.map(super.search(searchTerm, User.class), UserDTO.class);
     }
 
     @Override
-    public String buildRecoveryPasswordUrl(final User user, final String urlTemplate) {
+    public String buildRecoveryPasswordUrl(final UserDTO user, final String urlTemplate) {
         final String token = generateRecoveryToken(user);
         final String username = user.getUsername();
         return StringUtils.replaceEach(urlTemplate,
@@ -201,7 +224,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     }
 
     @Override
-    public String generateRecoveryToken(final User user) {
+    public String generateRecoveryToken(final UserDTO user) {
         return passwordTokenManager.generateRecoveryToken(user);
     }
 
@@ -214,7 +237,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     }
 
     @Override
-    public boolean isRecoveryTokenValid(final User user, final String token) {
+    public boolean isRecoveryTokenValid(final UserDTO user, final String token) {
         return passwordTokenManager.isRecoveryTokenValid(user, token);
     }
 
@@ -225,14 +248,14 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     public void sendPasswordRecoveryEmail(final String username, final String urlTemplate) {
         log.debug("Sending password recovery token to user: " + username);
 
-        final User user = getUserByUsername(username);
+        final UserDTO user = getUserByUsername(username);
         final String url = buildRecoveryPasswordUrl(user, urlTemplate);
 
         sendUserEmail(user, passwordRecoveryTemplate, url);
     }
 
-    private void sendUserEmail(final User user, final String template, final String url) {
-        message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
+    private void sendUserEmail(final UserDTO user, final String template, final String url) {
+        message.setTo(user.getUsername() + "<" + user.getEmail() + ">");
 
         final Map<String, Serializable> model = new HashMap<String, Serializable>();
         model.put("user", user);
@@ -246,26 +269,36 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      * {@inheritDoc}
      */
     @Override
-    public User updatePassword(final String username, final String currentPassword, final String recoveryToken, final String newPassword, final String applicationUrl) throws UserExistsException {
-        User user = getUserByUsername(username);
+    public UserDTO updatePassword(final String username, final String currentPassword, final String recoveryToken, final String newPassword, final String applicationUrl) throws UserExistsException {
+        UserDTO user = getUserByUsername(username);
         if (isRecoveryTokenValid(user, recoveryToken)) {
             log.debug("Updating password from recovery token for user:" + username);
-            user.setPassword(newPassword);
-            user = saveUser(user);
+            User plainUser = userDao.loadUserByUsername(username);
+            
+            plainUser.setPassword(newPassword);
+            plainUser = userDao.save(plainUser);
             passwordTokenManager.invalidateRecoveryToken(user, recoveryToken);
 
             sendUserEmail(user, passwordUpdatedTemplate, applicationUrl);
 
-            return user;
+            return mapper.map(plainUser, UserDTO.class);
         } else if (StringUtils.isNotBlank(currentPassword)) {
             if (passwordEncoder.matches(currentPassword, user.getPassword())) {
                 log.debug("Updating password (providing current password) for user:" + username);
-                user.setPassword(newPassword);
-                user = saveUser(user);
-                return user;
+                User plainUser = userDao.loadUserByUsername(username);
+                plainUser.setPassword(newPassword);
+                plainUser = userDao.save(plainUser);
+                return mapper.map(plainUser, UserDTO.class);
             }
         }
         // or throw exception
         return null;
     }
+
+
+	public UserDetails loadUserByUsername(String arg0){
+		return getUserByUsername(arg0);
+	}
+
+	
 }

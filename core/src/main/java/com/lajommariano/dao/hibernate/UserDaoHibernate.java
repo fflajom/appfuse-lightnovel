@@ -30,7 +30,7 @@ import org.hibernate.criterion.Restrictions;
  *   Modified by jgarcia (updated to hibernate 4)
 */
 @Repository("userDao")
-public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements UserDao, UserDetailsService {
+public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements UserDao{
 
     /**
      * Constructor that sets the entity to User.class.
@@ -77,12 +77,12 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
     /**
      * {@inheritDoc}
     */
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
         List users = getSession().createCriteria(User.class).add(Restrictions.eq("username", username)).list();
         if (users == null || users.isEmpty()) {
             throw new UsernameNotFoundException("user '" + username + "' not found...");
         } else {
-            return (UserDetails) users.get(0);
+            return (User) users.get(0);
         }
     }
 

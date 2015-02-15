@@ -39,4 +39,12 @@
     <bean id="persistentPasswordTokenManager.userManager" parent="userManager">
     	<property name="passwordTokenManager" ref="persistentPasswordTokenManager"></property>
     </bean>
+    
+    <bean id="mapper" class="com.lajommariano.util.DozerHelper">
+  		<property name="mappingFiles">
+    		<list>
+      			
+    		</list>
+	  	</property>
+  	</bean>
 </beans>    

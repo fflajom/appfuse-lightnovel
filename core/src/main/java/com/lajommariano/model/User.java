@@ -50,12 +50,12 @@ import javax.persistence.DiscriminatorColumn;
  *         Extended to implement Acegi UserDetails interface
  *         by David Carter david@carter.net
  */
+
 @Entity
 @Table(name = "user")
 @Indexed
-@XmlRootElement
 @DiscriminatorColumn(name="user_type")
-public class User extends BaseModel implements Serializable, UserDetails {
+public class User extends BaseModel implements Serializable {
     private static final long serialVersionUID = 3832626162173359411L;
 
     private String username;                    // required
@@ -241,12 +241,7 @@ public class User extends BaseModel implements Serializable, UserDetails {
         getRoles().add(role);
     }
 
-    @Transient
-    public Set<GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new LinkedHashSet<GrantedAuthority>();
-        authorities.addAll(roles);
-        return authorities;
-    }
+    
 
     @Version
     public Integer getVersion() {
@@ -439,4 +434,9 @@ public class User extends BaseModel implements Serializable, UserDetails {
         }
         return sb.toString();
     }
+
+	public Object willReturn(User testUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

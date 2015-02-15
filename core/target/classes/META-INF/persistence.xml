@@ -5,6 +5,8 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>com.lajommariano.model.User</class>
         <class>com.lajommariano.model.Role</class>
+        <class>com.lajommariano.model.Reader</class>
+        <class>com.lajommariano.model.Writer</class>
         
         <!-- 
         Adding more <class>f.q.c.Name</class> elements here is not required.  

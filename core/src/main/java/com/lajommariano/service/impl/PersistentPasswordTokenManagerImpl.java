@@ -10,7 +10,10 @@ import javax.sql.DataSource;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.lang.time.DateUtils;
+
+import com.lajommariano.service.model.UserDTO;
 import com.lajommariano.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -65,7 +68,7 @@ public class PersistentPasswordTokenManagerImpl implements PasswordTokenManager 
      * @see com.lajommariano.service.impl.PasswordTokenManager#generateRecoveryToken(com.lajommariano.model.User)
      */
     @Override
-    public String generateRecoveryToken(final User user) {
+    public String generateRecoveryToken(final UserDTO user) {
 	int length = RandomUtils.nextInt(16) + 16;
 	String token = RandomStringUtils.randomAlphanumeric(length);
         persistToken(user, token);
@@ -76,7 +79,7 @@ public class PersistentPasswordTokenManagerImpl implements PasswordTokenManager 
      * @see com.lajommariano.service.impl.PasswordTokenManager#isRecoveryTokenValid(com.lajommariano.model.User, java.lang.String)
      */
     @Override
-    public boolean isRecoveryTokenValid(final User user, final String token) {
+    public boolean isRecoveryTokenValid(final UserDTO user, final String token) {
         return isRecoveryTokenPersisted(user, token);
     }
 
@@ -85,16 +88,16 @@ public class PersistentPasswordTokenManagerImpl implements PasswordTokenManager 
      * @see com.lajommariano.service.impl.PasswordTokenManager#invalidateRecoveryToken(User, String)
      */
     @Override
-    public void invalidateRecoveryToken(User user, String token) {
+    public void invalidateRecoveryToken(UserDTO user, String token) {
         jdbcTemplate.update(deleteTokenSql, user.getUsername());
     }
 
-    protected void persistToken(User user, String token) {
+    protected void persistToken(UserDTO user, String token) {
         jdbcTemplate.update(deleteTokenSql, user.getUsername());
         jdbcTemplate.update(insertTokenSql, user.getUsername(), token, getExpirationTime());
     }
 
-    protected boolean isRecoveryTokenPersisted(final User user, final String token) {
+    protected boolean isRecoveryTokenPersisted(final UserDTO user, final String token) {
         Number count = jdbcTemplate.queryForObject(
                 selectTokenSql,
                 new Object[] { user.getUsername(), token }, Integer.class);

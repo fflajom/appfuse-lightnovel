@@ -1,5 +1,6 @@
 package com.lajommariano.service;
 
+import com.lajommariano.service.model.UserDTO;
 import com.lajommariano.model.User;
 
 import javax.jws.WebService;
@@ -8,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+
 import java.util.List;
 
 /**
@@ -24,7 +26,7 @@ public interface UserService {
      */
     @GET
     @Path("{id}")
-    User getUser(@PathParam("id") String userId);
+    UserDTO getUser(@PathParam("id") String userId);
 
     /**
      * Finds a user by their username.
@@ -32,7 +34,7 @@ public interface UserService {
      * @param username the user's username used to login
      * @return User a populated user object
      */
-    User getUserByUsername(@PathParam("username") String username);
+    UserDTO getUserByUsername(@PathParam("username") String username);
 
     /**
      * Retrieves a list of all users.
@@ -40,7 +42,7 @@ public interface UserService {
      * @return List
      */
     @GET
-    List<User> getUsers();
+    List<UserDTO> getUsers();
 
     /**
      * Saves a user's information
@@ -50,7 +52,7 @@ public interface UserService {
      * @throws UserExistsException thrown when user already exists
      */
     @POST
-    User saveUser(User user) throws UserExistsException;
+    UserDTO saveUser(UserDTO user) throws UserExistsException;
 
     /**
      * Removes a user from the database by their userId

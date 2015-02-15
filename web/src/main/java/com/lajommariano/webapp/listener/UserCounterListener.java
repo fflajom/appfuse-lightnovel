@@ -1,6 +1,8 @@
 package com.lajommariano.webapp.listener;
 
 import com.lajommariano.model.User;
+import com.lajommariano.service.model.UserDTO;
+
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.core.Authentication;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -42,7 +45,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     public static final String EVENT_KEY = HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
     private transient ServletContext servletContext;
     private int counter;
-    private Set<User> users;
+    private Set<UserDTO> users;
 
     /**
      * Initialize the context
@@ -83,11 +86,11 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     }
 
     @SuppressWarnings("unchecked")
-    synchronized void addUsername(User user) {
-        users = (Set<User>) servletContext.getAttribute(USERS_KEY);
+    synchronized void addUsername(UserDTO user) {
+        users = (Set<UserDTO>) servletContext.getAttribute(USERS_KEY);
 
         if (users == null) {
-            users = new LinkedHashSet<User>();
+            users = new LinkedHashSet<UserDTO>();
         }
 
         if (!users.contains(user)) {
@@ -98,8 +101,8 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     }
 
     @SuppressWarnings("unchecked")
-    synchronized void removeUsername(User user) {
-        users = (Set<User>) servletContext.getAttribute(USERS_KEY);
+    synchronized void removeUsername(UserDTO user) {
+        users = (Set<UserDTO>) servletContext.getAttribute(USERS_KEY);
 
         if (users != null) {
             users.remove(user);
@@ -119,7 +122,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
             if (securityContext != null && securityContext.getAuthentication().getPrincipal() instanceof User) {
-                User user = (User) securityContext.getAuthentication().getPrincipal();
+                UserDTO user = (UserDTO) securityContext.getAuthentication().getPrincipal();
                 addUsername(user);
             }
         }
@@ -146,7 +149,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
             SecurityContext securityContext = (SecurityContext) event.getValue();
             Authentication auth = securityContext.getAuthentication();
             if (auth != null && (auth.getPrincipal() instanceof User)) {
-                User user = (User) auth.getPrincipal();
+                UserDTO user = (UserDTO) auth.getPrincipal();
                 removeUsername(user);
             }
         }
@@ -164,7 +167,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
             final SecurityContext securityContext = (SecurityContext) event.getValue();
             if (securityContext.getAuthentication() != null
                     && securityContext.getAuthentication().getPrincipal() instanceof User) {
-                final User user = (User) securityContext.getAuthentication().getPrincipal();
+                final UserDTO user = (UserDTO) securityContext.getAuthentication().getPrincipal();
                 addUsername(user);
             }
         }

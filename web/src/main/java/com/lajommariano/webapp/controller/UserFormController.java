@@ -7,13 +7,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+
 import com.lajommariano.Constants;
 import com.lajommariano.model.Role;
 import com.lajommariano.model.User;
 import com.lajommariano.service.RoleManager;
 import com.lajommariano.service.UserExistsException;
 import com.lajommariano.service.UserManager;
+import com.lajommariano.service.model.UserDTO;
 import com.lajommariano.webapp.util.RequestUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
@@ -38,7 +41,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class UserFormController extends BaseFormController {
 
     private RoleManager roleManager;
-
+    
     @Autowired
     public void setRoleManager(final RoleManager roleManager) {
         this.roleManager = roleManager;
@@ -63,16 +66,16 @@ public class UserFormController extends BaseFormController {
      * @return
      */
     @ModelAttribute("user")
-    protected User loadUser(final HttpServletRequest request) {
+    protected UserDTO loadUser(final HttpServletRequest request) {
         final String userId = request.getParameter("id");
         if (isFormSubmission(request) && StringUtils.isNotBlank(userId)) {
             return getUserManager().getUser(userId);
         }
-        return new User();
+        return new UserDTO();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String onSubmit(@ModelAttribute("user") final User user, final BindingResult errors, final HttpServletRequest request,
+    public String onSubmit(@ModelAttribute("user") final UserDTO user, final BindingResult errors, final HttpServletRequest request,
             final HttpServletResponse response)
             throws Exception {
         if (request.getParameter("cancel") != null) {
@@ -97,7 +100,7 @@ public class UserFormController extends BaseFormController {
 
         if (request.getParameter("delete") != null) {
             getUserManager().removeUser(user.getId().toString());
-            saveMessage(request, getText("user.deleted", user.getFullName(), locale));
+            saveMessage(request, getText("user.deleted", user.getUsername(), locale));
 
             return getSuccessView();
         } else {
@@ -117,7 +120,7 @@ public class UserFormController extends BaseFormController {
                 // if user is not an admin then load roles from the database
                 // (or any other user properties that should not be editable
                 // by users without admin role)
-                final User cleanUser = getUserManager().getUserByUsername(
+                final UserDTO cleanUser = getUserManager().getUserByUsername(
                         request.getRemoteUser());
                 user.setRoles(cleanUser.getRoles());
             }
@@ -150,13 +153,13 @@ public class UserFormController extends BaseFormController {
             }
 
             if (!StringUtils.equals(request.getParameter("from"), "list")) {
-                saveMessage(request, getText("user.saved", user.getFullName(), locale));
+                saveMessage(request, getText("user.saved", user.getUsername(), locale));
 
                 // return to main Menu
                 return getCancelView();
             } else {
                 if (StringUtils.isBlank(request.getParameter("version"))) {
-                    saveMessage(request, getText("user.added", user.getFullName(), locale));
+                    saveMessage(request, getText("user.added", user.getUsername(), locale));
 
                     // Send an account information e-mail
                     message.setSubject(getText("signup.email.subject", locale));
@@ -164,7 +167,7 @@ public class UserFormController extends BaseFormController {
                     try {
                         final String resetPasswordUrl = getUserManager().buildRecoveryPasswordUrl(user,
                                 UpdatePasswordController.RECOVERY_PASSWORD_TEMPLATE);
-                        sendUserMessage(user, getText("newuser.email.message", user.getFullName(), locale),
+                        sendUserMessage(user, getText("newuser.email.message", user.getUsername(), locale),
                                 RequestUtil.getAppURL(request) + resetPasswordUrl);
                     } catch (final MailException me) {
                         saveError(request, me.getCause().getLocalizedMessage());
@@ -172,7 +175,7 @@ public class UserFormController extends BaseFormController {
 
                     return getSuccessView();
                 } else {
-                    saveMessage(request, getText("user.updated.byAdmin", user.getFullName(), locale));
+                    saveMessage(request, getText("user.updated.byAdmin", user.getUsername(), locale));
                 }
             }
         }
@@ -182,7 +185,7 @@ public class UserFormController extends BaseFormController {
 
     @ModelAttribute
     @RequestMapping(method = RequestMethod.GET)
-    protected User showForm(final HttpServletRequest request, final HttpServletResponse response)
+    protected UserDTO showForm(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
         // If not an administrator, make sure user is not trying to add or edit another user
         if (!request.isUserInRole(Constants.ADMIN_ROLE) && !isFormSubmission(request)) {
@@ -198,13 +201,13 @@ public class UserFormController extends BaseFormController {
         if (!isFormSubmission(request)) {
             final String userId = request.getParameter("id");
 
-            User user;
+            UserDTO user;
             if (userId == null && !isAdd(request)) {
                 user = getUserManager().getUserByUsername(request.getRemoteUser());
             } else if (!StringUtils.isBlank(userId) && !"".equals(request.getParameter("version"))) {
                 user = getUserManager().getUser(userId);
             } else {
-                user = new User();
+                user = new UserDTO();
                 user.addRole(new Role(Constants.USER_ROLE));
             }
 

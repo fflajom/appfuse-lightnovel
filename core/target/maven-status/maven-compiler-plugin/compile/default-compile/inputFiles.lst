@@ -35,10 +35,12 @@
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/core/src/main/java/com/lajommariano/util/DateConverter.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/core/src/main/java/com/lajommariano/model/Chapter.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/core/src/main/java/com/lajommariano/service/impl/GenericManagerImpl.java
+/Users/dev_env/Desktop/appfuse/appfuse-lightnovel/core/src/main/java/com/lajommariano/util/DozerHelper.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/core/src/main/java/com/lajommariano/service/impl/LookupManagerImpl.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/core/src/main/java/com/lajommariano/service/impl/UserManagerImpl.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/core/src/main/java/com/lajommariano/service/LookupManager.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/core/src/main/java/com/lajommariano/dao/hibernate/RoleDaoHibernate.java
+/Users/dev_env/Desktop/appfuse/appfuse-lightnovel/core/src/main/java/com/lajommariano/service/model/UserDTO.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/core/src/main/java/com/lajommariano/service/UserExistsException.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/core/src/main/java/com/lajommariano/service/UserManager.java
 /Users/dev_env/Desktop/appfuse/appfuse-lightnovel/core/src/main/java/com/lajommariano/dao/hibernate/HibernateSearchTools.java

@@ -9,7 +9,9 @@ import com.lajommariano.Constants;
 import com.lajommariano.model.User;
 import com.lajommariano.service.RoleManager;
 import com.lajommariano.service.UserExistsException;
+import com.lajommariano.service.model.UserDTO;
 import com.lajommariano.webapp.util.RequestUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
@@ -49,7 +51,7 @@ public class SignupController extends BaseFormController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String onSubmit(final User user, final BindingResult errors, final HttpServletRequest request, final HttpServletResponse response)
+    public String onSubmit(final UserDTO user, final BindingResult errors, final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
         if (request.getParameter("cancel") != null) {
             return getCancelView();

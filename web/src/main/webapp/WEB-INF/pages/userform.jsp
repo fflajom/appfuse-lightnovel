@@ -33,13 +33,13 @@
         </c:if>
     </spring:bind>
 
-    <form:form commandName="user" method="post" action="userform" id="userForm" autocomplete="off"
+    <form:form commandName="userDTO" method="post" action="userform" id="userForm" autocomplete="off"
                cssClass="well" onsubmit="return validateUser(this)">
         <form:hidden path="id"/>
         <form:hidden path="version"/>
         <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>
 
-        <spring:bind path="user.username">
+        <spring:bind path="username">
         <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
         </spring:bind>
             <appfuse:label styleClass="control-label" key="user.username"/>
@@ -52,7 +52,7 @@
             </c:if>
         </div>
 
-        <spring:bind path="user.passwordHint">
+        <spring:bind path="passwordHint">
         <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
         </spring:bind>
             <appfuse:label styleClass="control-label" key="user.passwordHint"/>
@@ -60,14 +60,14 @@
             <form:errors path="passwordHint" cssClass="help-block"/>
         </div>
         <div class="row">
-            <spring:bind path="user.firstName">
+            <spring:bind path="firstName">
             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
             </spring:bind>
                 <appfuse:label styleClass="control-label" key="user.firstName"/>
                 <form:input cssClass="form-control" path="firstName" id="firstName" maxlength="50"/>
                 <form:errors path="firstName" cssClass="help-block"/>
             </div>
-            <spring:bind path="user.lastName">
+            <spring:bind path="lastName">
             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
             </spring:bind>
                 <appfuse:label styleClass="control-label" key="user.lastName"/>
@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="row">
-            <spring:bind path="user.email">
+            <spring:bind path="email">
             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
             </spring:bind>
                 <appfuse:label styleClass="control-label" key="user.email"/>
@@ -154,11 +154,11 @@
             </select>
         </div>
     </c:when>
-    <c:when test="${not empty user.username}">
+    <c:when test="${not empty userDTO.username}">
         <div class="form-group">
             <label class="control-label"><fmt:message key="user.roles"/>:</label>
             <div class="readonly">
-                <c:forEach var="role" items="${user.roleList}" varStatus="status">
+                <c:forEach var="role" items="${userDTO.roleList}" varStatus="status">
                     <c:out value="${role.label}"/><c:if test="${!status.last}">,</c:if>
                     <input type="hidden" name="userRoles" value="<c:out value="${role.label}"/>"/>
                 </c:forEach>

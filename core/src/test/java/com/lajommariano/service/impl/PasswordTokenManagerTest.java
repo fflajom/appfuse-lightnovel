@@ -2,8 +2,11 @@ package com.lajommariano.service.impl;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import com.lajommariano.model.User;
+
+import com.lajommariano.service.model.UserDTO;
 import com.lajommariano.service.UserManager;
+import com.lajommariano.util.DozerHelper;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +27,9 @@ import static org.junit.Assert.assertTrue;
                 "classpath:/applicationContext-test.xml" })
 public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringContextTests {
 
+	@Autowired
+	private DozerHelper helper;
+	
     protected transient final Log log = LogFactory.getLog(getClass());
     private int smtpPort = 25250;
 
@@ -56,7 +62,7 @@ public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringC
 
     @Test
     public void testGenerateRecoveryToken() {
-        final User user = userManager.getUserByUsername("user");
+        final UserDTO user = userManager.getUserByUsername("user");
         final String token = passwordTokenManager.generateRecoveryToken(user);
         Assert.assertNotNull(token);
         Assert.assertTrue(passwordTokenManager.isRecoveryTokenValid(user, token));
@@ -64,7 +70,7 @@ public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringC
 
     @Test
     public void testConsumeRecoveryToken() throws Exception {
-        final User user = userManager.getUserByUsername("user");
+        final UserDTO user = userManager.getUserByUsername("user");
         final Integer version = user.getVersion();
 
         final String token = passwordTokenManager.generateRecoveryToken(user);
@@ -76,13 +82,13 @@ public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringC
         wiser.setPort(smtpPort);
         wiser.start();
 
-        userManager.updatePassword(user.getUsername(), null, token, "user", "");
+        UserDTO userChanged = userManager.updatePassword(user.getUsername(), null, token, "user", "");
 
         wiser.stop();
         assertTrue(wiser.getMessages().size() == 1);
-
-        Assert.assertTrue(user.getVersion() > version);
-        Assert.assertFalse(passwordTokenManager.isRecoveryTokenValid(user, token));
+        
+        Assert.assertTrue(userChanged.getVersion() > version);
+        Assert.assertFalse(passwordTokenManager.isRecoveryTokenValid(userChanged, token));
     }
 
 }

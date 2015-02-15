@@ -2,10 +2,13 @@ package com.lajommariano.webapp.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import com.lajommariano.Constants;
 import com.lajommariano.model.User;
 import com.lajommariano.service.MailEngine;
 import com.lajommariano.service.UserManager;
+import com.lajommariano.service.model.UserDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -20,6 +23,7 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -174,12 +178,12 @@ public class BaseFormController implements ServletContextAware {
      * @param msg the message to send.
      * @param url the URL of the application.
      */
-    protected void sendUserMessage(User user, String msg, String url) {
+    protected void sendUserMessage(UserDTO user, String msg, String url) {
         if (log.isDebugEnabled()) {
             log.debug("sending e-mail to user [" + user.getEmail() + "]...");
         }
 
-        message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
+        message.setTo(user.getUsername() + "<" + user.getEmail() + ">");
 
         Map<String, Serializable> model = new HashMap<String, Serializable>();
         model.put("user", user);

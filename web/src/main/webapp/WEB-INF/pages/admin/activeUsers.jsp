@@ -16,7 +16,7 @@
             <i class="icon-ok icon-white"></i> <fmt:message key="button.done"/></a>
     </div>
 
-    <display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
+    <display:table name="applicationScope.userNames" id="userDTO" cellspacing="0" cellpadding="0"
                    defaultsort="1" class="table table-condensed table-striped table-hover" pagesize="50" requestURI="">
         <display:column property="username" escapeXml="true" style="width: 30%" titleKey="user.username"
                         sortable="true"/>

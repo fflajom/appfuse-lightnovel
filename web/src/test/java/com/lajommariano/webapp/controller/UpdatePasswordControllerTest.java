@@ -6,8 +6,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.lang.RandomStringUtils;
+
 import com.lajommariano.model.User;
 import com.lajommariano.service.UserManager;
+import com.lajommariano.service.model.UserDTO;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -63,7 +66,7 @@ public class UpdatePasswordControllerTest extends BaseControllerTestCase {
     @Test
     public void testShowResetPasswordForm() throws Exception {
         String username = "admin";
-        User user = userManager.getUserByUsername(username);
+        UserDTO user = userManager.getUserByUsername(username);
         String token = userManager.generateRecoveryToken(user);
 
         MockHttpServletRequest request = newGet("/updatePassword");
@@ -93,7 +96,7 @@ public class UpdatePasswordControllerTest extends BaseControllerTestCase {
     @Test
     public void testResetPassword() throws Exception {
         String username = "admin";
-        User user = userManager.getUserByUsername(username);
+        UserDTO user = userManager.getUserByUsername(username);
         String token = userManager.generateRecoveryToken(user);
         String password = "new-pass";
 
