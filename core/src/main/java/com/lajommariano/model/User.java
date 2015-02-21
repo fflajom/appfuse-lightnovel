@@ -58,30 +58,30 @@ import javax.persistence.DiscriminatorColumn;
 public class User extends BaseModel implements Serializable {
     private static final long serialVersionUID = 3832626162173359411L;
 
-    private String username;                    // required
-    private String password;
-    private String salt;                    // required
-    private String confirmPassword;
-    private String passwordHint;
-    private String firstName;                   // required
-    private String lastName;                    // required
-    private String email;                       // required; unique
-    private String phoneNumber;
-    private String website;
-    private Address address = new Address();
-    private Integer version;
-    private Set<Role> roles = new HashSet<Role>();
-    private boolean enabled;
-    private boolean accountExpired;
-    private boolean accountLocked;
-    private boolean credentialsExpired;
-    private Date birthdate;
-	private Date premiumDate;
-	private Date registrationDate;
+    protected String username;                    // required
+    protected String password;
+    protected String salt;                    // required
+    protected String confirmPassword;
+    protected String passwordHint;
+    protected String firstName;                   // required
+    protected String lastName;                    // required
+    protected String email;                       // required; unique
+    protected String phoneNumber;
+    protected String website;
+    protected Address address = new Address();
+    protected Integer version;
+    protected Set<Role> roles = new HashSet<Role>();
+    protected boolean enabled;
+    protected boolean accountExpired;
+    protected boolean accountLocked;
+    protected boolean credentialsExpired;
+    protected Date birthdate;
+	protected Date premiumDate;
+	protected Date registrationDate;
 
-	private List<User> following = new ArrayList<User>();
+	protected List<User> following = new ArrayList<User>();
 
-	private List<User> followers = new ArrayList<User>();
+	protected List<User> followers = new ArrayList<User>();
 	
     public User() {
     }

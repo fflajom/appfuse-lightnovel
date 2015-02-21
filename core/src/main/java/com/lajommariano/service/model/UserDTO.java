@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,25 +20,25 @@ import com.lajommariano.model.Role;
 
 public class UserDTO implements UserDetails {
 
-	private Long id;
-	private String username;                   
-	private String password;
-	private String salt;                    
-	private String confirmPassword;
-	private String passwordHint;
-	private String firstName;                   
-	private String lastName;                    
-	private String email;                       
-	private String phoneNumber;
-	private String website;
-	private Integer version;
-	private boolean enabled;
-	private boolean accountExpired;
-	private boolean accountLocked;
-	private boolean credentialsExpired;
-	private Date birthdate;
-	private Date premiumDate;
-	private Date registrationDate;
+	protected Long id;
+	protected String username;                   
+	protected String password;
+	protected String salt;                    
+	protected String confirmPassword;
+	protected String passwordHint;
+	protected String firstName;                   
+	protected String lastName;                    
+	protected String email;                       
+	protected String phoneNumber;
+	protected String website;
+	protected Integer version;
+	protected boolean enabled;
+	protected boolean accountExpired;
+	protected boolean accountLocked;
+	protected boolean credentialsExpired;
+	protected Date birthdate;
+	protected Date premiumDate;
+	protected Date registrationDate;
 
 	private Set<Role> roles = new HashSet<Role>();
 	private Address address = new Address();
@@ -54,6 +55,7 @@ public class UserDTO implements UserDetails {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
 	public String getPassword() {
 		return password;
 	}

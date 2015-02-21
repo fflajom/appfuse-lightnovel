@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.004" errors="0" skipped="0" tests="6" name="com.lajommariano.util.DateUtilTest">
+<testsuite failures="0" time="0.005" errors="0" skipped="0" tests="6" name="com.lajommariano.util.DateUtilTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home/jre/lib"/>
@@ -64,8 +64,8 @@
   </properties>
   <testcase time="0.001" classname="com.lajommariano.util.DateUtilTest" name="testGetToday"/>
   <testcase time="0" classname="com.lajommariano.util.DateUtilTest" name="testGetDateWithNull"/>
-  <testcase time="0" classname="com.lajommariano.util.DateUtilTest" name="testGetDateTime"/>
-  <testcase time="0" classname="com.lajommariano.util.DateUtilTest" name="testGetDateTimeWithNull"/>
-  <testcase time="0.002" classname="com.lajommariano.util.DateUtilTest" name="testGetInternationalDatePattern"/>
+  <testcase time="0.001" classname="com.lajommariano.util.DateUtilTest" name="testGetDateTime"/>
+  <testcase time="0.001" classname="com.lajommariano.util.DateUtilTest" name="testGetDateTimeWithNull"/>
+  <testcase time="0.001" classname="com.lajommariano.util.DateUtilTest" name="testGetInternationalDatePattern"/>
   <testcase time="0.001" classname="com.lajommariano.util.DateUtilTest" name="testGetDate"/>
 </testsuite>

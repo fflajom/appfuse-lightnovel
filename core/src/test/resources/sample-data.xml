@@ -137,4 +137,25 @@
             <value description="role_id">-2</value>
         </row>
     </table>
+        <table name="book">
+    	<column>is_premium</column>
+    	<column>publish_date</column>
+    	<column>synopsis</column>
+    	<column>title</column>
+    	<column>user_id</column>
+	    <row>
+	    	<value description="is_premium">1</value>
+	    	<value description="publish_date">2014-12-12</value>
+	    	<value description="synopsis">This is a short story about fate.</value>
+	    	<value description="title">Sword Art</value>
+	    	<value description="user_id">-2</value>
+	    </row>
+	    <row>
+	    	<value description="is_premium">0</value>
+	    	<value description="publish_date">2014-12-12</value>
+	    	<value description="synopsis">This is a short story about love.</value>
+	    	<value description="title">Sword Art II</value>
+	    	<value description="user_id">-2</value>
+	    </row>
+	</table>
 </dataset>
