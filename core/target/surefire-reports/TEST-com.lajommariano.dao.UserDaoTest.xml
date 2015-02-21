@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.282" errors="0" skipped="0" tests="8" name="com.lajommariano.dao.UserDaoTest">
+<testsuite failures="0" time="0.187" errors="0" skipped="0" tests="8" name="com.lajommariano.dao.UserDaoTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home/jre/lib"/>
@@ -62,12 +62,12 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.088" classname="com.lajommariano.dao.UserDaoTest" name="testAddUserRole"/>
-  <testcase time="0.035" classname="com.lajommariano.dao.UserDaoTest" name="testUpdateUser"/>
-  <testcase time="0.026" classname="com.lajommariano.dao.UserDaoTest" name="testGetUser"/>
-  <testcase time="0.029" classname="com.lajommariano.dao.UserDaoTest" name="testGetUserInvalid"/>
-  <testcase time="0.018" classname="com.lajommariano.dao.UserDaoTest" name="testUserNotExists"/>
-  <testcase time="0.023" classname="com.lajommariano.dao.UserDaoTest" name="testUserExists"/>
-  <testcase time="0.025" classname="com.lajommariano.dao.UserDaoTest" name="testAddAndRemoveUser"/>
-  <testcase time="0.038" classname="com.lajommariano.dao.UserDaoTest" name="testGetUserPassword"/>
+  <testcase time="0.049" classname="com.lajommariano.dao.UserDaoTest" name="testAddUserRole"/>
+  <testcase time="0.025" classname="com.lajommariano.dao.UserDaoTest" name="testUpdateUser"/>
+  <testcase time="0.019" classname="com.lajommariano.dao.UserDaoTest" name="testGetUser"/>
+  <testcase time="0.014" classname="com.lajommariano.dao.UserDaoTest" name="testGetUserInvalid"/>
+  <testcase time="0.014" classname="com.lajommariano.dao.UserDaoTest" name="testUserNotExists"/>
+  <testcase time="0.016" classname="com.lajommariano.dao.UserDaoTest" name="testUserExists"/>
+  <testcase time="0.017" classname="com.lajommariano.dao.UserDaoTest" name="testAddAndRemoveUser"/>
+  <testcase time="0.033" classname="com.lajommariano.dao.UserDaoTest" name="testGetUserPassword"/>
 </testsuite>
